@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="confetti"></canvas> <!-- Move the canvas outside the container -->
+    <div class="container">
+        <h1>Your Cybersecurity Adventure Results</h1>
+        <p id="final-score"></p>
+        <p id="feedback"></p>
+        <a href="index.html" class="start-button animated-glow">Play Again</a>
+    </div>
+    <script>
+        const score = parseInt(localStorage.getItem('score')) || 0; // Ensure score is a valid number
+        const feedback = score >= 120 ? "Outstanding! You're a cybersecurity expert!" :
+                        score >= 80 ? "Great job! You made smart choices." :
+                        score >= 50 ? "Not bad, but there's room for improvement." :
+                        "You need to work on your online safety skills.";
+        document.getElementById('final-score').innerText = `Your final score: ${score}`;
+        document.getElementById('feedback').innerText = feedback;
+
+        if (score >= 120) {
+            const confetti = document.getElementById('confetti');
+            const confettiCtx = confetti.getContext('2d');
+            confetti.width = window.innerWidth;
+            confetti.height = window.innerHeight;
+
+            const particles = [];
+            const particleCount = 150;
+
+            function createParticle() {
+                return {
+                    x: Math.random() * confetti.width,
+                    y: Math.random() * confetti.height - confetti.height,
+                    r: Math.random() * 4 + 1,
+                    d: Math.random() * particleCount,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                    tilt: Math.random() * 10 - 10
+                };
+            }
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(createParticle());
+            }
+
+            function drawConfetti() {
+                confettiCtx.clearRect(0, 0, confetti.width, confetti.height);
+                particles.forEach((p, i) => {
+                    confettiCtx.beginPath();
+                    confettiCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, false);
+                    confettiCtx.fillStyle = p.color;
+                    confettiCtx.fill();
+                });
+                updateParticles();
+            }
+
+            function updateParticles() {
+                particles.forEach((p, i) => {
+                    p.y += Math.cos(p.d) + 1 + p.r / 2;
+                    p.x += Math.sin(p.d);
+                    if (p.y > confetti.height) {
+                        particles[i] = createParticle();
+                    }
+                });
+            }
+
+            function animateConfetti() {
+                drawConfetti();
+                requestAnimationFrame(animateConfetti);
+            }
+
+            animateConfetti();
+        }
+    </script>
+</body>
+</html>

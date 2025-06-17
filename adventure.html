@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="animated-heading">Cybersecurity Adventure</h1>
+        <div id="progress-bar" class="glowing-progress">
+            <div id="progress"></div>
+        </div>
+        <div id="scenario-container" class="terminal-box">
+            <!-- Scenarios will be dynamically loaded here -->
+        </div>
+        <div id="feedback-container" class="feedback-box"></div>
+        <div id="score-container">Security Score: <span id="score">0</span></div>
+    </div>
+    <audio id="decision-sound" src="decision.mp3"></audio>
+    <script src="adventure.js"></script>
+</body>
+</html>

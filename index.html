@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="animated-heading">Welcome to the Cybersecurity Adventure</h1>
+        <p id="typewriter" class="terminal-text"></p>
+        <div class="menu">
+            <a href="adventure.html" class="menu-button animated-glow">Start Adventure</a>
+            <a href="quiz.html" class="menu-button animated-glow">Take the Quiz</a>
+            <a href="memory.html" class="menu-button animated-glow">Memory Game</a>
+        </div>
+    </div>
+    <script>
+        const typewriterText = "Choose your path: embark on an adventure, test your knowledge with a quiz, or play the memory game!";
+        let i = 0;
+        const speed = 50;
+        function typeEffect() {
+            if (i < typewriterText.length) {
+                document.getElementById("typewriter").innerHTML += typewriterText.charAt(i);
+                i++;
+                setTimeout(typeEffect, speed);
+            }
+        }
+        window.onload = typeEffect;
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="animated-heading">Computer Security Quiz</h1>
+        <div id="progress-bar">
+            <div id="progress"></div>
+        </div>
+        <div id="timer">Time Left: <span id="time-left">60</span>s</div>
+        <div id="quiz-container" class="quiz-container">
+            <!-- Questions will be dynamically loaded here -->
+        </div>
+        <button id="submit-button" class="start-button">Submit</button>
+    </div>
+    <audio id="correct-sound" src="correct.mp3"></audio>
+    <audio id="incorrect-sound" src="incorrect.mp3"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
