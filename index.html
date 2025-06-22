@@ -81,16 +81,14 @@
             const container = document.querySelector(".container");
             const urlParams = new URLSearchParams(window.location.search);
             const bypassLoading = urlParams.get("bypassLoading") === "true";
+            const hasVisited = localStorage.getItem("hasVisited") === "true";
 
-            if (bypassLoading) {
-                loadingScreen.style.display = "none";
-                container.style.display = "block";
-                typeEffect();
-            } else if (document.referrer.indexOf("menu.html") !== -1) {
+            if (bypassLoading || hasVisited) {
                 loadingScreen.style.display = "none";
                 container.style.display = "block";
                 typeEffect();
             } else {
+                localStorage.setItem("hasVisited", "true");
                 setTimeout(() => {
                     loadingScreen.style.display = "none";
                     container.style.display = "block";
