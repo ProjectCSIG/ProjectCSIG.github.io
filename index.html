@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <button id="theme-toggle" class="theme-toggle">🌙</button>
     <div id="loading-screen">
-        <div class="matrix"></div> <!-- Matrix falling letters effect -->
+        <div class="matrix"></div>
         <div class="loading-spinner"></div>
         <p class="loading-text">Loading Cybersecurity Adventure...</p>
     </div>
@@ -33,15 +34,28 @@
             }
         }
 
-        // Generate random falling letters for the matrix effect
+        function applyTheme(theme) {
+            document.body.classList.toggle("light-mode", theme === "light");
+            document.getElementById("theme-toggle").innerText = theme === "light" ? "☀️" : "🌙";
+        }
+
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        applyTheme(savedTheme);
+
+        const themeToggle = document.getElementById("theme-toggle");
+        themeToggle.addEventListener("click", () => {
+            const newTheme = document.body.classList.contains("light-mode") ? "dark" : "light";
+            localStorage.setItem("theme", newTheme);
+            applyTheme(newTheme);
+        });
+
         function generateMatrix() {
             const matrix = document.querySelector('.matrix');
-            const columns = 30; // number of letter columns
+            const columns = 30;
             for (let i = 0; i < columns; i++) {
                 let col = document.createElement('div');
                 col.className = 'matrix-column';
                 matrix.appendChild(col);
-                // Each column gets random letters
                 let lettersCount = 20 + Math.floor(Math.random() * 10);
                 for (let j = 0; j < lettersCount; j++) {
                     let letter = document.createElement('span');
@@ -51,26 +65,25 @@
                 }
             }
         }
+
         generateMatrix();
 
-        // New: continuously update each matrix letter
         function updateMatrix() {
             document.querySelectorAll('.matrix-letter').forEach(letter => {
                 letter.innerText = String.fromCharCode(33 + Math.floor(Math.random() * 94));
             });
         }
+
         setInterval(updateMatrix, 100);
 
         window.onload = () => {
             const loadingScreen = document.getElementById("loading-screen");
             const container = document.querySelector(".container");
-            if(document.referrer.indexOf("menu.html") !== -1) {
-                // Coming from menu.html: skip loading screen
+            if (document.referrer.indexOf("menu.html") !== -1) {
                 loadingScreen.style.display = "none";
                 container.style.display = "block";
                 typeEffect();
             } else {
-                // Normal loading delay
                 setTimeout(() => {
                     loadingScreen.style.display = "none";
                     container.style.display = "block";

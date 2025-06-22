@@ -1,82 +1,141 @@
 body {
-	font-family: 'Courier New', monospace;
+	font-family: 'Roboto', sans-serif;
 	margin: 0;
 	padding: 0;
-	background: #000; /* Pure black background */
-	color: #b19cd9; /* Light lavender text */
+	background: linear-gradient(135deg, #1a001a, #000);
+	color: #b19cd9;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
 }
 
+body.light-mode {
+	background: #f9f9f9;
+	color: #333;
+}
+
 .container {
 	text-align: center;
-	background: #1a001a; /* Dark purple container */
-	border: 1px solid #8e44ad; /* Purple border */
-	box-shadow: 0 8px 15px rgba(142, 68, 173, 0.5);
-	padding: 15px;
-	border-radius: 12px;
-	width: 80%;
-	max-width: 500px;
+	background: rgba(26, 0, 26, 0.9);
+	border: 1px solid #8e44ad;
+	box-shadow: 0 8px 20px rgba(142, 68, 173, 0.6);
+	padding: 25px;
+	border-radius: 16px;
+	width: 90%;
+	max-width: 600px;
 	color: #b19cd9;
 	height: auto;
 	overflow: hidden;
 }
 
+body.light-mode .container {
+	background: #fff;
+	border: 1px solid #ccc;
+	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
 canvas#confetti {
-	position: absolute; /* Ensure the canvas is positioned independently */
+	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%; /* Make the canvas cover the full width */
-	height: 100%; /* Make the canvas cover the full height */
-	pointer-events: none; /* Prevent the canvas from interfering with user interactions */
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
 }
 
 h1 {
-	color: #b19cd9; /* Headings in light lavender */
-	font-size: 2rem;
+	color: #b19cd9;
+	font-size: 2.5rem;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+body.light-mode h1 {
+	color: #333;
 }
 
 .start-button, .menu-button {
 	background: linear-gradient(135deg, #8e44ad, #603e82);
 	border: none;
-	border-radius: 10px;
-	padding: 15px 30px;
+	border-radius: 12px;
+	padding: 15px 35px;
 	font-size: 1.2rem;
 	letter-spacing: 1px;
 	color: #fff;
 	cursor: pointer;
 	transition: all 0.3s ease;
-	box-shadow: 0 6px 12px rgba(142, 68, 173, 0.6);
+	box-shadow: 0 6px 15px rgba(142, 68, 173, 0.6);
+}
+
+body.light-mode .start-button, body.light-mode .menu-button, body.light-mode .back-button {
+	background: linear-gradient(135deg, #ddd, #bbb);
+	color: #333;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .start-button:hover, .menu-button:hover {
 	background: linear-gradient(135deg, #9b59b6, #8e44ad);
 	transform: scale(1.05);
-	box-shadow: 0 8px 16px rgba(142, 68, 173, 0.8);
+	box-shadow: 0 8px 20px rgba(142, 68, 173, 0.8);
+}
+
+body.light-mode .start-button:hover, body.light-mode .menu-button:hover, body.light-mode .back-button:hover {
+	background: linear-gradient(135deg, #ccc, #aaa);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.back-button {
+	background: linear-gradient(135deg, #603e82, #8e44ad);
+	border: none;
+	border-radius: 12px;
+	padding: 15px 35px;
+	font-size: 1.2rem;
+	letter-spacing: 1px;
+	color: #fff;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 6px 15px rgba(142, 68, 173, 0.6);
+}
+
+.back-button:hover {
+	background: linear-gradient(135deg, #8e44ad, #9b59b6);
+	transform: scale(1.05);
+	box-shadow: 0 8px 20px rgba(142, 68, 173, 0.8);
 }
 
 .terminal-text {
-	font-family: 'Courier New', monospace;
-	background: #000;
+	font-family: 'Roboto Mono', monospace;
+	background: rgba(0, 0, 0, 0.8);
 	color: #b19cd9;
-	padding: 10px;
-	border-radius: 6px;
+	padding: 12px;
+	border-radius: 8px;
 	border: 1px solid #8e44ad;
 	display: inline-block;
-	margin-top: 10px;
+	margin-top: 15px;
+	font-size: 1.1rem;
+}
+
+body.light-mode .terminal-text {
+	background: #f0f0f0;
+	color: #333;
+	border: 1px solid #ccc;
 }
 
 .terminal-box {
-	background: #000;
+	background: rgba(0, 0, 0, 0.8);
 	border: 1px solid #30363d;
-	padding: 15px;
-	border-radius: 6px;
+	padding: 20px;
+	border-radius: 12px;
 	margin-top: 20px;
 	text-align: left;
-	font-family: 'Courier New', monospace;
+	font-family: 'Roboto Mono', monospace;
 	animation: fadeIn 0.5s ease-in-out;
+}
+
+body.light-mode .terminal-box {
+	background: #f9f9f9;
+	border: 1px solid #ccc;
 }
 
 @keyframes fadeIn {
@@ -91,29 +150,36 @@ h1 {
 }
 
 .feedback-box {
-	background: #1a001a;
+	background: rgba(26, 0, 26, 0.9);
 	border: 1px solid #8e44ad;
-	padding: 15px;
-	border-radius: 6px;
-	margin-top: 15px;
-	font-family: 'Courier New', monospace;
+	padding: 20px;
+	border-radius: 12px;
+	margin-top: 20px;
+	font-family: 'Roboto Mono', monospace;
 	color: #b19cd9;
 	display: none;
 	animation: fadeIn 0.5s ease-in-out;
-	box-shadow: 0 4px 8px rgba(142, 68, 173, 0.5);
+	box-shadow: 0 6px 15px rgba(142, 68, 173, 0.6);
+}
+
+body.light-mode .feedback-box {
+	background: #f9f9f9;
+	border: 1px solid #ccc;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .option-button {
 	display: block;
-	margin: 10px auto;
-	padding: 10px 20px;
+	margin: 15px auto;
+	padding: 12px 25px;
 	background-color: #8e44ad;
 	color: #fff;
 	border: none;
-	border-radius: 6px;
+	border-radius: 12px;
 	cursor: pointer;
 	transition: background-color 0.3s ease, transform 0.2s ease;
 	animation: bounceIn 0.3s ease-in-out;
+	font-size: 1.1rem;
 }
 
 .option-button:hover {
@@ -196,7 +262,6 @@ h1 {
 	}
 }
 
-/* Menu styling */
 .menu {
 	margin-top: 20px;
 	display: flex;
@@ -223,25 +288,26 @@ h1 {
 	box-shadow: 0 6px 12px rgba(155, 89, 182, 0.6);
 }
 
-/* Game menu list styling: add bullet points and extra spacing */
 .game-menu {
-	list-style: none; /* Remove default bullets */
+	list-style: none;
 	padding: 0;
-	margin: 20px 0;  /* Vertical spacing around the list */
+	margin: 20px 0;
 	display: flex;
 	flex-direction: column;
-	gap: 40px;  /* Increased gap for spacing */
+	gap: 40px;
 }
+
 .game-menu li {
 	position: relative;
-	padding-left: 20px; /* Leave space for bullet */
+	padding-left: 20px;
 }
+
 .game-menu li::before {
 	content: "•";
 	position: absolute;
 	left: 0;
 	top: 0;
-	color: #8e44ad; /* Bullet color */
+	color: #8e44ad;
 }
 
 .correct-feedback {
@@ -288,22 +354,22 @@ h1 {
 	}
 }
 
-/* Memory grid & card styles */
 .memory-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-	gap: 15px;
+	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+	gap: 20px;
 	margin-top: 20px;
 	justify-content: center;
 }
 
 .memory-card {
 	position: relative;
-	width: 100px;
-	height: 150px;
+	width: 120px;
+	height: 180px;
 	perspective: 1000px;
 	cursor: pointer;
 	transition: transform 0.3s ease;
+	border-radius: 12px;
 }
 
 .memory-card:hover {
@@ -319,14 +385,14 @@ h1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: 6px;
-	font-size: 14px;
+	border-radius: 12px;
+	font-size: 1rem;
 	font-weight: bold;
 	color: #fff;
 	background: #238636;
 	border: 1px solid #30363d;
 	transition: transform 0.5s ease;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .memory-card .card-back {
@@ -374,36 +440,38 @@ h1 {
 	font-weight: bold;
 }
 
-/* Enhanced Loading Screen */
 #loading-screen {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	/* Updated background gradient with darker purple (#603e82) */
 	background: linear-gradient(135deg, #000, #603e82);
 	background-size: 200% 200%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	color: #b19cd9; /* Light lavender text remains */
-	font-family: 'Courier New', monospace;
+	color: #b19cd9;
+	font-family: 'Roboto Mono', monospace;
 	z-index: 9999;
 	animation: fadeIn 0.5s ease-in-out, bgAnimation 6s infinite alternate;
 }
 
 @keyframes bgAnimation {
-	0% { background-position: 0% 50%; }
-	100% { background-position: 100% 50%; }
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 100% 50%;
+	}
 }
 
 .loading-spinner {
 	width: 60px;
 	height: 60px;
 	border: 6px solid #333;
-	border-top: 6px solid #603e82; /* Updated to darker purple */
+	border-top: 6px solid #603e82;
 	border-radius: 50%;
 	animation: spin 1s linear infinite;
 	margin-bottom: 15px;
@@ -417,16 +485,23 @@ h1 {
 }
 
 @keyframes spin {
-	from { transform: rotate(0deg); }
-	to { transform: rotate(360deg); }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 @keyframes pulseText {
-	0%, 100% { opacity: 1; }
-	50% { opacity: 0.5; }
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
 }
 
-/* Matrix falling letters effect */
 .matrix {
 	position: absolute;
 	top: 0;
@@ -448,23 +523,30 @@ h1 {
 }
 
 .matrix-letter {
-	color: rgba(177, 156, 217, 0.7); /* Light lavender with transparency */
+	color: rgba(177, 156, 217, 0.7);
 	font-size: 16px;
 	margin-bottom: 2px;
 	animation: fadeIn 0.5s forwards;
 }
 
 @keyframes falling {
-	0% { transform: translateY(-100%); }
-	100% { transform: translateY(100%); }
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(100%);
+	}
 }
 
 @keyframes fadeIn {
-	from { opacity: 0; }
-	to { opacity: 1; }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
-/* New spacing rules for Code Breaker input elements */
 .container input[type="text"] {
 	padding: 10px;
 	font-size: 1.2rem;
@@ -473,60 +555,93 @@ h1 {
 	border: 1px solid #8e44ad;
 	text-align: center;
 }
+
 .container button {
 	margin: 15px;
 }
+
 .container #feedback, .container #attempts {
 	margin: 15px 0;
 }
 
-/* New update for Code Breaker input and button styles */
 .container.codebreaker-container input[type="text"] {
-    background: transparent; /* Remove background */
-    color: #b19cd9;
-    padding: 12px;
-    font-size: 1.4rem;
-    margin: 20px 0;
-    border: 1px solid #8e44ad;
-    border-radius: 6px;
-    text-align: center;
-    width: 80%;
+	background: transparent;
+	color: #b19cd9;
+	padding: 12px;
+	font-size: 1.4rem;
+	margin: 20px 0;
+	border: 1px solid #8e44ad;
+	border-radius: 6px;
+	text-align: center;
+	width: 80%;
 }
 
 .container.codebreaker-container button {
-    background-color: #8e44ad; /* Consistent with other start buttons */
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 12px 24px;
-    margin: 20px;
-    font-size: 1.1rem;
-    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+	background-color: #8e44ad;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	padding: 12px 24px;
+	margin: 20px;
+	font-size: 1.1rem;
+	transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* New style for back buttons */
-.back-button {
-    background: linear-gradient(135deg, #603e82, #8e44ad);
-    border: none;
-    border-radius: 10px;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 12px rgba(142, 68, 173, 0.6);
-}
-
-.back-button:hover {
-    background: linear-gradient(135deg, #8e44ad, #9b59b6);
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(142, 68, 173, 0.8);
-}
-
-/* New container style for the back button */
 .back-button-container {
-    text-align: center;
-    margin-top: 30px;
+	text-align: center;
+	margin-top: 30px;
+}
+
+.theme-toggle {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background: transparent;
+	border: none;
+	font-size: 1.5rem;
+	cursor: pointer;
+	z-index: 1000;
+	transition: transform 0.2s ease;
+	color: #b19cd9;
+}
+
+.theme-toggle:hover {
+	transform: scale(1.2);
+}
+
+@media (max-width: 600px) {
+	body {
+		padding: 10px;
+		font-size: 14px;
+	}
+
+	.container {
+		width: 95%;
+		max-width: 100%;
+		padding: 15px;
+		margin: auto;
+	}
+
+	h1 {
+		font-size: 1.8rem;
+	}
+
+	.start-button, .menu-button, .back-button {
+		padding: 12px 25px;
+		font-size: 1rem;
+	}
+
+	.terminal-box {
+		padding: 15px;
+		font-size: 0.9rem;
+	}
+
+	.menu {
+		gap: 10px;
+	}
+
+	.game-menu {
+		gap: 20px;
+	}
 }

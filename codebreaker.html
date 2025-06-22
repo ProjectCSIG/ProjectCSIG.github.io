@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <script>
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        document.body.classList.toggle("light-mode", savedTheme === "light");
+    </script>
     <div class="container codebreaker-container">
         <h1 class="animated-heading">Code Breaker</h1>
         <p>Guess the 4-digit secret code. Digits won't repeat.</p>

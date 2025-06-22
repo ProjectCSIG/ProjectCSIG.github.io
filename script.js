@@ -28,7 +28,7 @@ const questions = [
 
 let currentQuestion = 0;
 let score = 0;
-let timeLeft = 180; // Increased time for more questions
+let timeLeft = 180;
 
 const quizContainer = document.getElementById('quiz-container');
 const submitButton = document.getElementById('submit-button');

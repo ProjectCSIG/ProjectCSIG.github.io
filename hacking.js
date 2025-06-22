@@ -9,7 +9,6 @@ const simulationSteps = [
     { message: "🏆 Finishing mission and cleaning up our digital tracks...", expected: "finish" }
 ];
 
-// Extra fun messages to simulate deeper interaction
 const extraMessages = [
     "✨ Zapping silly glitches...",
     "🚀 Boosting turbo speed to hyper mode...",
@@ -44,7 +43,6 @@ function updateProgress() {
 }
 
 function displayExtraMessages(callback) {
-    // Display a random extra message before the next step
     const msg = extraMessages[Math.floor(Math.random() * extraMessages.length)];
     appendMessage(msg);
     setTimeout(callback, 1000);
@@ -76,7 +74,6 @@ function processCommand() {
 }
 
 startButton.addEventListener("click", () => {
-    // Hide instructions and show simulation elements
     instructionsDiv.style.display = "none";
     terminal.style.display = "block";
     progressBarContainer.style.display = "block";

@@ -181,12 +181,11 @@ const decisionSound = document.getElementById('decision-sound');
 function loadScenario() {
     if (currentScenario < scenarios.length) {
         const scenario = scenarios[currentScenario];
-        scenarioContainer.innerHTML = `
-            <p>${scenario.scenario}</p>
-            ${scenario.options.map((option, index) => `
-                <button class="option-button" data-score="${option.score}" data-feedback="${option.text}">${option.text}</button>
-            `).join('')}
-        `;
+        scenarioContainer.innerHTML = `<p>${scenario.scenario}</p>`;
+        const optionsWrapper = document.getElementById('options-wrapper');
+        optionsWrapper.innerHTML = scenario.options.map(option => `
+            <button class="option-button" data-score="${option.score}" data-feedback="${option.text}">${option.text}</button>
+        `).join('');
         document.querySelectorAll('.option-button').forEach(button => {
             button.addEventListener('click', (e) => {
                 const selectedScore = parseInt(e.target.getAttribute('data-score'));
@@ -203,7 +202,7 @@ function loadScenario() {
                     feedbackContainer.classList.remove('feedback-animation');
                     currentScenario++;
                     loadScenario();
-                }, 1500); // Delay for better user experience
+                }, 1500);
             });
         });
     } else {

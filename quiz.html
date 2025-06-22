@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <script>
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        document.body.classList.toggle("light-mode", savedTheme === "light");
+    </script>
     <div class="container">
         <h1 class="animated-heading">Computer Security Quiz</h1>
         <div id="progress-bar">
             <div id="progress"></div>
         </div>
         <div id="timer">Time Left: <span id="time-left">60</span>s</div>
-        <div id="quiz-container" class="quiz-container">
-            <!-- Questions will be dynamically loaded here -->
-        </div>
+        <div id="quiz-container" class="quiz-container"></div>
         <button id="submit-button" class="start-button">Submit</button>
     </div>
     <audio id="correct-sound" src="correct.mp3"></audio>

@@ -29,7 +29,6 @@ submitGuess.addEventListener('click', () => {
         submitGuess.disabled = true;
         guessInput.disabled = true;
     } else {
-        // Count correct positions and correct digits in wrong positions
         let correctPos = 0;
         let correctDigit = 0;
         for (let i = 0; i < 4; i++) {

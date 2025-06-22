@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <script>
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        document.body.classList.toggle("light-mode", savedTheme === "light");
+    </script>
     <div class="container">
         <h1 class="animated-heading">Cybersecurity Memory Game</h1>
         <p>Match the cybersecurity terms with their definitions!</p>
-        <div id="memory-game" class="memory-grid">
-            <!-- Cards will be dynamically loaded here -->
-        </div>
+        <div id="memory-game" class="memory-grid"></div>
         <p id="memory-score">Matches: <span id="matches">0</span></p>
         <a href="index.html" class="start-button">Back to Menu</a>
     </div>
