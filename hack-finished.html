@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hack Finished</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="confetti"></canvas>
+    <div class="container" style="padding: 40px;">
+        <h1 class="animated-heading" style="margin-bottom: 30px;">Hack Complete!</h1>
+        <p style="margin-bottom: 30px;">Congratulations! You successfully completed the hacking simulation.</p>
+        <a href="index?bypassLoading=true" class="start-button animated-glow" style="margin-top: 20px;">Back to Main Menu</a>
+    </div>
+    <script>
+        const confetti = document.getElementById('confetti');
+        const confettiCtx = confetti.getContext('2d');
+        confetti.width = window.innerWidth;
+        confetti.height = window.innerHeight;
+        const particles = [];
+        const particleCount = 150;
+
+        function createParticle() {
+            return {
+                x: Math.random() * confetti.width,
+                y: Math.random() * confetti.height - confetti.height,
+                r: Math.random() * 4 + 1,
+                d: Math.random() * particleCount,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                tilt: Math.random() * 10 - 10
+            };
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(createParticle());
+        }
+
+        function drawConfetti() {
+            confettiCtx.clearRect(0, 0, confetti.width, confetti.height);
+            particles.forEach((p) => {
+                confettiCtx.beginPath();
+                confettiCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2, false);
+                confettiCtx.fillStyle = p.color;
+                confettiCtx.fill();
+            });
+            updateParticles();
+        }
+
+        function updateParticles() {
+            particles.forEach((p, i) => {
+                p.y += Math.cos(p.d) + 1 + p.r / 2;
+                p.x += Math.sin(p.d);
+                if (p.y > confetti.height) {
+                    particles[i] = createParticle();
+                }
+            });
+        }
+
+        function animateConfetti() {
+            drawConfetti();
+            requestAnimationFrame(animateConfetti);
+        }
+
+        animateConfetti();
+    </script>
+</body>
+</html>

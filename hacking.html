@@ -3,33 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacking Simulator</title>
+    <title>Hacker Simulator</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: black;
+            color: green;
+            font-family: monospace;
+        }
+        .terminal-box {
+            background-color: black;
+            color: green;
+            border: 1px solid green;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+    </style>
 </head>
 <body>
     <script>
         const savedTheme = localStorage.getItem("theme") || "dark";
         document.body.classList.toggle("light-mode", savedTheme === "light");
     </script>
-    <div class="container">
-        <h1 class="animated-heading">Hacking Simulator</h1>
+    <div id="storyline-screen" class="container">
+        <h1 class="animated-heading">Hacker Simulator: Bank Heist</h1>
+        <p id="storyline">You are a skilled hacker attempting to infiltrate a bank's system to uncover hidden secrets. Follow the steps carefully to complete your mission. You must find hidden credentials, encryption keys, and bypass tokens to succeed.</p>
+        <button id="start-button" class="start-button" style="margin-top: 20px;">Start Mission</button>
+    </div>
+    <div id="instructions-screen" class="container" style="display: none;">
+        <h1 class="animated-heading">Hacker Simulator: Bank Heist</h1>
         <div id="instructions" class="terminal-box">
-            <p>Welcome to the Awesome Hacking Simulator! 🚀</p>
-            <p>Become a digital detective and unlock secret missions like a true superhero!</p>
-            <p>Type the magic commands (in order): <code>connect, bypass, inject, access, decrypt, extract, download, finish</code></p>
-            <button id="startHack" class="start-button">Let's Hack! 😎</button>
+            <p>Step 1: Open the browser's developer tools (Inspect Element).</p>
+            <p>Step 2: Locate the hidden bank login credentials in the HTML.</p>
         </div>
-        <div id="hacking-terminal" class="terminal-box" style="display: none;"></div>
-        <div id="command-container" style="display: none; margin-top: 15px;">
-            <input type="text" id="hack-command" placeholder="Enter command" style="padding:12px; font-size:1.2rem; border:1px solid #8e44ad; border-radius:6px; background:transparent; color:#b19cd9; text-align:center; width:80%;">
-            <button id="executeCommand" class="start-button" style="margin-top:10px; padding:12px 24px;">Execute Command</button>
-        </div>
-        <div id="hacking-progress-bar" style="margin:20px 0; border:1px solid #8e44ad; border-radius:6px; display: none;">
-            <div id="hacking-progress" style="height:12px; background:linear-gradient(135deg, #8e44ad, #9b59b6); width:0%; border-radius:6px;"></div>
-        </div>
-        <div class="back-button-container">
-            <a href="menu" class="back-button">Back to Menu</a>
-        </div>
+        <button id="next-button" class="start-button" style="margin-top: 20px;">Next Step</button>
+        <div id="feedback-container" class="feedback-box"></div>
+    </div>
+    <!-- Hidden elements -->
+    <div style="display: none;" id="hidden-credentials">
+        <p>Bank Username: admin</p>
+        <p>Bank Password: secure123</p>
+    </div>
+    <div style="display: none;" id="hidden-encryption-key">
+        <p>Encryption Key: 3xmpl3K3y</p>
+    </div>
+    <div style="display: none;" id="hidden-bypass-token">
+        <p>Security Bypass Token: T0k3n123</p>
     </div>
     <script src="hacking.js"></script>
 </body>
