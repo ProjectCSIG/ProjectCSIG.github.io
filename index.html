@@ -7,19 +7,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="animated-heading">Welcome to the Cybersecurity Adventure</h1>
+    <div id="loading-screen">
+        <div class="matrix"></div> <!-- Matrix falling letters effect -->
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading Cybersecurity Adventure...</p>
+    </div>
+    <div class="container" style="display: none;">
+        <h1 class="animated-heading">Cybersecurity Adventure</h1>
         <p id="typewriter" class="terminal-text"></p>
         <div class="menu">
-            <a href="adventure.html" class="menu-button animated-glow">Start Adventure</a>
-            <a href="quiz.html" class="menu-button animated-glow">Take the Quiz</a>
-            <a href="memory.html" class="menu-button animated-glow">Memory Game</a>
+            <a href="adventure.html" class="menu-button animated-glow">Play Adventure</a>
+            <a href="menu.html" class="menu-button animated-glow">Try More Games</a>
         </div>
     </div>
     <script>
         const typewriterText = "Choose your path: embark on an adventure, test your knowledge with a quiz, or play the memory game!";
         let i = 0;
         const speed = 50;
+
         function typeEffect() {
             if (i < typewriterText.length) {
                 document.getElementById("typewriter").innerHTML += typewriterText.charAt(i);
@@ -27,7 +32,52 @@
                 setTimeout(typeEffect, speed);
             }
         }
-        window.onload = typeEffect;
+
+        // Generate random falling letters for the matrix effect
+        function generateMatrix() {
+            const matrix = document.querySelector('.matrix');
+            const columns = 30; // number of letter columns
+            for (let i = 0; i < columns; i++) {
+                let col = document.createElement('div');
+                col.className = 'matrix-column';
+                matrix.appendChild(col);
+                // Each column gets random letters
+                let lettersCount = 20 + Math.floor(Math.random() * 10);
+                for (let j = 0; j < lettersCount; j++) {
+                    let letter = document.createElement('span');
+                    letter.className = 'matrix-letter';
+                    letter.innerText = String.fromCharCode(33 + Math.floor(Math.random() * 94));
+                    col.appendChild(letter);
+                }
+            }
+        }
+        generateMatrix();
+
+        // New: continuously update each matrix letter
+        function updateMatrix() {
+            document.querySelectorAll('.matrix-letter').forEach(letter => {
+                letter.innerText = String.fromCharCode(33 + Math.floor(Math.random() * 94));
+            });
+        }
+        setInterval(updateMatrix, 100);
+
+        window.onload = () => {
+            const loadingScreen = document.getElementById("loading-screen");
+            const container = document.querySelector(".container");
+            if(document.referrer.indexOf("menu.html") !== -1) {
+                // Coming from menu.html: skip loading screen
+                loadingScreen.style.display = "none";
+                container.style.display = "block";
+                typeEffect();
+            } else {
+                // Normal loading delay
+                setTimeout(() => {
+                    loadingScreen.style.display = "none";
+                    container.style.display = "block";
+                    typeEffect();
+                }, 5000);
+            }
+        };
     </script>
 </body>
 </html>

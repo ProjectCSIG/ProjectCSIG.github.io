@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Breaker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container codebreaker-container">
+        <h1 class="animated-heading">Code Breaker</h1>
+        <p>Guess the 4-digit secret code. Digits won't repeat.</p>
+        <input type="text" id="guessInput" maxlength="4" placeholder="Enter 4-digit code">
+        <button id="submitGuess" class="start-button">Submit Guess</button>
+        <div id="feedback"></div>
+        <div id="attempts">Attempts: 0</div>
+        <a href="menu.html" class="back-button">Back to Menu</a>
+    </div>
+    <script src="codebreaker.js"></script>
+</body>
+</html>

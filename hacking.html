@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hacking Simulator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<h1 class="animated-heading">Hacking Simulator</h1>
+		<div id="instructions" class="terminal-box">
+			<p>Welcome to the Awesome Hacking Simulator! 🚀</p>
+			<p>Become a digital detective and unlock secret missions like a true superhero!</p>
+			<p>Type the magic commands (in order): <code>connect, bypass, inject, access, decrypt, extract, download, finish</code></p>
+			<button id="startHack" class="start-button">Let's Hack! 😎</button>
+		</div>
+		<div id="hacking-terminal" class="terminal-box" style="display: none;">
+			<!-- Simulation output will appear here -->
+		</div>
+		<div id="command-container" style="display: none; margin-top: 15px;">
+			<input type="text" id="hack-command" placeholder="Enter command" style="padding:12px; font-size:1.2rem; border:1px solid #8e44ad; border-radius:6px; background:transparent; color:#b19cd9; text-align:center; width:80%;">
+			<button id="executeCommand" class="start-button" style="margin-top:10px; padding:12px 24px;">Execute Command</button>
+		</div>
+		<div id="hacking-progress-bar" style="margin:20px 0; border: 1px solid #8e44ad; border-radius: 6px; display: none;">
+			<div id="hacking-progress" style="height: 12px; background: linear-gradient(135deg, #8e44ad, #9b59b6); width: 0%; border-radius: 6px;"></div>
+		</div>
+		<div class="back-button-container">
+			<a href="menu.html" class="back-button">Back to Menu</a>
+		</div>
+	</div>
+	<script src="hacking.js"></script>
+</body>
+</html>
