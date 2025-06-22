@@ -17,8 +17,8 @@
         <h1 class="animated-heading">Cybersecurity Adventure</h1>
         <p id="typewriter" class="terminal-text"></p>
         <div class="menu">
-            <a href="adventure.html" class="menu-button animated-glow">Play Adventure</a>
-            <a href="menu.html" class="menu-button animated-glow">Try More Games</a>
+            <a href="adventure" class="menu-button animated-glow">Play Adventure</a>
+            <a href="menu" class="menu-button animated-glow">Try More Games</a>
         </div>
     </div>
     <script>
@@ -79,7 +79,14 @@
         window.onload = () => {
             const loadingScreen = document.getElementById("loading-screen");
             const container = document.querySelector(".container");
-            if (document.referrer.indexOf("menu.html") !== -1) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bypassLoading = urlParams.get("bypassLoading") === "true";
+
+            if (bypassLoading) {
+                loadingScreen.style.display = "none";
+                container.style.display = "block";
+                typeEffect();
+            } else if (document.referrer.indexOf("menu.html") !== -1) {
                 loadingScreen.style.display = "none";
                 container.style.display = "block";
                 typeEffect();

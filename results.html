@@ -9,15 +9,19 @@
 <body>
     <canvas id="confetti"></canvas>
     <div class="container">
-        <h1>Your Cybersecurity Adventure Results</h1>
-        <p id="final-score"></p>
-        <p id="feedback"></p>
-        <a href="index.html" class="start-button animated-glow">Play Again</a>
+        <h1 class="animated-heading">Your Cybersecurity Adventure Results</h1>
+        <div class="results-content">
+            <p id="final-score" class="results-text"></p>
+            <p id="feedback" class="results-text"></p>
+        </div>
+        <div class="results-actions">
+            <a href="index?bypassLoading=true" class="start-button animated-glow">Play Again</a>
+            <a href="menu" class="start-button animated-glow">Back to Menu</a>
+        </div>
     </div>
     <script>
         const savedTheme = localStorage.getItem("theme") || "dark";
         document.body.classList.toggle("light-mode", savedTheme === "light");
-
 
         const score = parseInt(localStorage.getItem('score')) || 0;
         const feedback = score >= 120 ? "Outstanding! You're a cybersecurity expert!" :
@@ -26,6 +30,7 @@
                         "You need to work on your online safety skills.";
         document.getElementById('final-score').innerText = `Your final score: ${score}`;
         document.getElementById('feedback').innerText = feedback;
+
         if (score >= 120) {
             const confetti = document.getElementById('confetti');
             const confettiCtx = confetti.getContext('2d');
@@ -33,6 +38,7 @@
             confetti.height = window.innerHeight;
             const particles = [];
             const particleCount = 150;
+
             function createParticle() {
                 return {
                     x: Math.random() * confetti.width,
@@ -43,9 +49,11 @@
                     tilt: Math.random() * 10 - 10
                 };
             }
+
             for (let i = 0; i < particleCount; i++) {
                 particles.push(createParticle());
             }
+
             function drawConfetti() {
                 confettiCtx.clearRect(0, 0, confetti.width, confetti.height);
                 particles.forEach((p) => {
@@ -56,6 +64,7 @@
                 });
                 updateParticles();
             }
+
             function updateParticles() {
                 particles.forEach((p, i) => {
                     p.y += Math.cos(p.d) + 1 + p.r / 2;
@@ -65,10 +74,12 @@
                     }
                 });
             }
+
             function animateConfetti() {
                 drawConfetti();
                 requestAnimationFrame(animateConfetti);
             }
+
             animateConfetti();
         }
     </script>

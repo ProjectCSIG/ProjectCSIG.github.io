@@ -11,12 +11,12 @@
         const savedTheme = localStorage.getItem("theme") || "dark";
         document.body.classList.toggle("light-mode", savedTheme === "light");
     </script>
-    <div class="container">
-        <h1 class="animated-heading">Cybersecurity Memory Game</h1>
-        <p>Match the cybersecurity terms with their definitions!</p>
-        <div id="memory-game" class="memory-grid"></div>
-        <p id="memory-score">Matches: <span id="matches">0</span></p>
-        <a href="index.html" class="start-button">Back to Menu</a>
+    <div class="container" style="padding: 20px;">
+        <h1 class="animated-heading" style="margin-bottom: 15px;">Cybersecurity Memory Game</h1>
+        <p style="margin-bottom: 15px;">Match the cybersecurity terms with their definitions!</p>
+        <div id="memory-game" class="memory-grid" style="margin-bottom: 15px;"></div>
+        <p id="memory-score" style="margin-bottom: 15px;">Matches: <span id="matches">0</span></p>
+        <a href="index" class="start-button" style="margin-top: 10px;">Back to Menu</a>
     </div>
     <script src="memory.js"></script>
 </body>
