@@ -4,8 +4,99 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cybersecurity Simulator</title>
-  <link rel="stylesheet" href="sim.css" />
+  
+  <style>
+    body {
+      background-color: #111;
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 40px;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .screen {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    button {
+      background-color: #222;
+      color: #eee;
+      border: 2px solid #555;
+      border-radius: 8px;
+      padding: 12px 24px;
+      margin: 12px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #555;
+      border-color: #0f9;
+    }
+
+    #scenario-text {
+      font-size: 1.3rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+      min-height: 120px;
+      white-space: pre-line;
+    }
+
+    /* Overlay for screen effects */
+    #overlay {
+      pointer-events: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+    }
+
+    /* Effects */
+    @keyframes flashEffect {
+      0%, 100% { background-color: rgba(255, 255, 255, 0); }
+      50% { background-color: rgba(255, 255, 255, 0.7); }
+    }
+
+    .flash {
+      animation: flashEffect 0.3s ease-in-out 3;
+    }
+
+    @keyframes flickerEffect {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .flicker {
+      animation: flickerEffect 0.15s infinite;
+    }
+
+    @keyframes glitchEffect {
+      0% { clip: rect(0, 9999px, 0, 0); transform: translate(0); }
+      20% { clip: rect(0, 9999px, 30px, 0); transform: translate(-5px, -2px); }
+      40% { clip: rect(10px, 9999px, 45px, 0); transform: translate(5px, 2px); }
+      60% { clip: rect(0, 9999px, 30px, 0); transform: translate(-3px, 1px); }
+      80% { clip: rect(10px, 9999px, 45px, 0); transform: translate(3px, -1px); }
+      100% { clip: rect(0, 9999px, 0, 0); transform: translate(0); }
+    }
+
+    .glitch {
+      animation: glitchEffect 0.3s linear infinite;
+      background: #111;
+      mix-blend-mode: screen;
+      opacity: 0.8;
+    }
+  </style>
 </head>
+
 <body>
   <div id="start-screen" class="screen">
     <h1>Cybersecurity Simulator</h1>
@@ -25,6 +116,173 @@
     <button onclick="restartGame()">Play Again</button>
   </div>
 
-  <script src="sim.js"></script>
+  <script>
+    function clearEffects() {
+      const overlay = document.getElementById('overlay');
+      overlay.classList.remove('flash', 'flicker', 'glitch');
+    }
+
+    let currentScenario = null;
+    let playerRole = null;
+
+    const scenarios = {
+      hacker: [
+        {
+          id: 1,
+          text: `You’ve found a vulnerable server with outdated software. What do you do?`,
+          choices: [
+            { text: 'Exploit the vulnerability to gain access.', nextId: 2, effect: 'glitch' },
+            { text: 'Scan further for more vulnerabilities.', nextId: 3, effect: 'flicker' },
+          ]
+        },
+        {
+          id: 2,
+          text: `You exploited the vulnerability and gained access.\nYou find encrypted files—do you try to decrypt or plant malware?`,
+          choices: [
+            { text: 'Attempt to decrypt files.', nextId: 4, effect: 'flash' },
+            { text: 'Plant malware for future access.', nextId: 5, effect: 'glitch' },
+          ]
+        },
+        {
+          id: 3,
+          text: `Scanning reveals a backup server with weak passwords.\nDo you try brute force attack or phishing to get credentials?`,
+          choices: [
+            { text: 'Brute force the password.', nextId: 5, effect: 'flicker' },
+            { text: 'Launch a phishing campaign.', nextId: 6, effect: 'flash' },
+          ]
+        },
+        {
+          id: 4,
+          text: `You decrypted the files and found sensitive user data.\nSecurity is tightening; do you exfiltrate data quickly or cover tracks first?`,
+          choices: [
+            { text: 'Exfiltrate data immediately.', nextId: 'win', effect: 'flash' },
+            { text: 'Cover tracks before exfiltrating.', nextId: 'lose', effect: 'glitch' },
+          ]
+        },
+        {
+          id: 5,
+          text: `Malware planted successfully, but security detected unusual activity.\nDo you disconnect or try to confuse the defenders?`,
+          choices: [
+            { text: 'Disconnect and cover tracks.', nextId: 'win', effect: 'flash' },
+            { text: 'Deploy fake signals to confuse defenders.', nextId: 'lose', effect: 'flicker' },
+          ]
+        },
+        {
+          id: 6,
+          text: `Phishing campaign launched, but your email was traced.\nYou’re caught before accessing the system.\nGame over.`,
+          choices: []
+        },
+      ],
+
+      defender: [
+        {
+          id: 1,
+          text: `You notice strange login attempts from an unknown IP.\nDo you block the IP or monitor activity silently?`,
+          choices: [
+            { text: 'Block the IP immediately.', nextId: 2, effect: 'flash' },
+            { text: 'Monitor silently for more info.', nextId: 3, effect: 'flicker' },
+          ]
+        },
+        {
+          id: 2,
+          text: `IP blocked. Attackers switch tactics and start phishing attempts.\nDo you educate employees or enhance email filters?`,
+          choices: [
+            { text: 'Conduct employee cybersecurity training.', nextId: 4, effect: 'glitch' },
+            { text: 'Deploy advanced email filtering.', nextId: 5, effect: 'flash' },
+          ]
+        },
+        {
+          id: 3,
+          text: `Monitoring reveals attacker uses social engineering.\nDo you simulate a phishing attack to test employees or tighten network security?`,
+          choices: [
+            { text: 'Simulate phishing attack.', nextId: 4, effect: 'flicker' },
+            { text: 'Increase network security protocols.', nextId: 5, effect: 'glitch' },
+          ]
+        },
+        {
+          id: 4,
+          text: `Employees trained and alert.\nPhishing attempts reduced significantly.\nDo you invest in threat detection software or hire a security consultant?`,
+          choices: [
+            { text: 'Invest in threat detection software.', nextId: 'win', effect: 'flash' },
+            { text: 'Hire an external security consultant.', nextId: 'lose', effect: 'glitch' },
+          ]
+        },
+        {
+          id: 5,
+          text: `Email filters updated.\nSome phishing emails still got through.\nData breach occurred.\nGame over.`,
+          choices: []
+        }
+      ]
+    };
+
+    function startGame(role) {
+      playerRole = role;
+      currentScenario = 1;
+      document.getElementById('start-screen').classList.add('hidden');
+      document.getElementById('end-screen').classList.add('hidden');
+      document.getElementById('scenario-screen').classList.remove('hidden');
+      showScenario(currentScenario);
+    }
+
+    function showScenario(id) {
+      clearEffects();
+      const scenario = scenarios[playerRole].find(s => s.id === id);
+
+      if (!scenario) {
+        if (id === 'win') {
+          showEnd('🎉 Congratulations! You succeeded!');
+          return;
+        }
+        if (id === 'lose') {
+          showEnd('💥 You failed. Better luck next time!');
+          return;
+        }
+        showEnd('Error: Scenario not found.');
+        return;
+      }
+
+      const scenarioText = document.getElementById('scenario-text');
+      const choicesDiv = document.getElementById('choices');
+
+      scenarioText.textContent = scenario.text;
+      choicesDiv.innerHTML = '';
+
+      scenario.choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.textContent = choice.text;
+        btn.onclick = () => {
+          playEffect(choice.effect);
+          setTimeout(() => {
+            showScenario(choice.nextId);
+          }, 600);
+        };
+        choicesDiv.appendChild(btn);
+      });
+    }
+
+    function showEnd(message) {
+      clearEffects();
+      document.getElementById('scenario-screen').classList.add('hidden');
+      const endScreen = document.getElementById('end-screen');
+      document.getElementById('end-message').textContent = message;
+      endScreen.classList.remove('hidden');
+    }
+
+    function restartGame() {
+      playerRole = null;
+      currentScenario = null;
+      document.getElementById('end-screen').classList.add('hidden');
+      document.getElementById('scenario-screen').classList.add('hidden');
+      document.getElementById('start-screen').classList.remove('hidden');
+    }
+
+    function playEffect(effect) {
+      clearEffects();
+      const overlay = document.getElementById('overlay');
+      if (effect && ['flash', 'flicker', 'glitch'].includes(effect)) {
+        overlay.classList.add(effect);
+      }
+    }
+  </script>
 </body>
 </html>
