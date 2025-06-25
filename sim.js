@@ -1,3 +1,6 @@
+
+console.log("JS loaded")
+
 /// Clear overlay effects
 function clearEffects() {
   const overlay = document.getElementById('overlay');
