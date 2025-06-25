@@ -1,49 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hack or Protect Simulator</title>
-    <link rel="stylesheet" href="sim.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cybersecurity Simulator</title>
+  <link rel="stylesheet" href="sim.css" />
 </head>
 <body>
-    <div class="overlay" id="overlay"></div>
+  <div id="start-screen" class="screen">
+    <h1>Cybersecurity Simulator</h1>
+    <p>Choose your role:</p>
+    <button onclick="startGame('hacker')">🕶️ Hacker</button>
+    <button onclick="startGame('defender')">🛡️ Defender</button>
+  </div>
 
-    <div class="game-container">
-        <h1>💻 Hack or Protect Simulator</h1>
+  <div id="scenario-screen" class="screen hidden">
+    <div id="overlay"></div>
+    <div id="scenario-text"></div>
+    <div id="choices"></div>
+  </div>
 
-        <div id="start-screen" class="screen">
-            <p>Choose your role:</p>
-            <button onclick="startGame('hacker')">🕶️ Hacker</button>
-            <button onclick="startGame('defender')">🛡️ Defender</button>
-            <h3>🏆 Leaderboard</h3>
-            <ul id="leaderboard"></ul>
-        </div>
+  <div id="end-screen" class="screen hidden">
+    <h2 id="end-message"></h2>
+    <button onclick="restartGame()">Play Again</button>
+  </div>
 
-        <div id="scenario-screen" class="screen hidden">
-            <h2 id="role-title"></h2>
-            <p id="scenario-text"></p>
-            <div id="choices"></div>
-            <p id="timer" class="timer"></p>
-            <p class="score">Score: <span id="score">0</span></p>
-            <p class="badge">🎖️ Badges: <span id="badges">None</span></p>
-        </div>
-
-        <div id="result-screen" class="screen hidden">
-            <h2>🎯 Game Over</h2>
-            <p id="result-text"></p>
-            <p class="score">Final Score: <span id="final-score">0</span></p>
-            <p class="badge">🎖️ Badges Earned: <span id="final-badges">None</span></p>
-            <button onclick="restartGame()">🔄 Play Again</button>
-        </div>
-    </div>
-
-    <!-- Sound Effects -->
-    <audio id="typeSound" src="sounds/type.mp3"></audio>
-    <audio id="successSound" src="sounds/success.mp3"></audio>
-    <audio id="failSound" src="sounds/fail.mp3"></audio>
-    <audio id="glitchSound" src="sounds/glitch.mp3"></audio>
-
-    <script src="sim.js"></script>
+  <script src="sim.js"></script>
 </body>
 </html>
